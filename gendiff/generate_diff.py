@@ -19,7 +19,8 @@ def generate_diff(file_path1, file_path2):
             if file1[key] == file2[key]:
                 diff.append(f'    {key}: {to_str(file1[key])}')
             else:
-                diff.append(f'  - {key}: {to_str(file1[key])}\n  + {key}: {to_str(file2[key])}')
+                diff.append(
+                  f'  - {key}: {to_str(file1[key])}\n  + {key}: {to_str(file2[key])}')
         elif key in file1 and key not in file2:
             diff.append(f'  - {key}: {to_str(file1[key])}')
         elif key not in file1 and key in file2:

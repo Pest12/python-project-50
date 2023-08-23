@@ -12,5 +12,6 @@ def main():
     diff = generate_diff('file1.json', 'file2.json')
     print(diff)
 
+
 if __name__ == '__main__':
     main()

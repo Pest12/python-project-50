@@ -1,5 +1,5 @@
 {
   "timeout": 20,
-  "verbose": true,
+  "verbose": true,  # noqa: F821
   "host": "hexlet.io"
 }

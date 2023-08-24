@@ -8,8 +8,8 @@ def main():
     parser.add_argument('first_file')
     parser.add_argument('second_file')
     parser.add_argument('-f', '--format', help='set format of output')
-    args = parser.parse_args()  # noqa: F841
-    diff = generate_diff('file1.json', 'file2.json')
+    args = parser.parse_args()
+    diff = generate_diff(args.first_file, args.second_file)
     print(diff)
 
 

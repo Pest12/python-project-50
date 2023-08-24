@@ -24,5 +24,5 @@ def generate_diff(file_path1, file_path2):
             diff.append(f'  - {key}: {to_str(file1[key])}')
         elif key not in file1 and key in file2:
             diff.append(f'  + {key}: {to_str(file2[key])}')
-    template = '{\n' + '\n'.join(diff) + '\n}'
+    template = '{\n' + '\n'.join(diff) + '\n}' + '\n'
     return template

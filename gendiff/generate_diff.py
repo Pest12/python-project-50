@@ -1,4 +1,4 @@
-import json
+from gendiff.parser import parse
 
 
 def to_str(value):
@@ -12,8 +12,8 @@ def to_str(value):
 
 def generate_diff(file_path1, file_path2):
     diff = []
-    file1 = json.load(open(file_path1))
-    file2 = json.load(open(file_path2))
+    file1 = parse(file_path1)
+    file2 = parse(file_path2)
     for key in sorted(file1 | file2):
         if key in file1 and key in file2:
             if file1[key] == file2[key]:

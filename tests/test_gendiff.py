@@ -7,6 +7,8 @@ import pytest
     [
         ("file1.json", "file2.json", "result.txt"),
         ("file1.yaml", "file2.yaml", "result.txt"),
+        ("file1-rec.json", "file2-rec.json", "result-rec.txt"),
+        ("file1-rec.yaml", "file2-rec.yaml", "result-rec.txt"),
     ]
 )
 def test_gendiff(input_file1, input_file2, output_file):

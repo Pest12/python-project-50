@@ -9,6 +9,8 @@ import pytest
         ("file1.yaml", "file2.yaml", "result.txt", 'stylish'),
         ("file1-rec.json", "file2-rec.json", "result-rec.txt", 'stylish'),
         ("file1-rec.yaml", "file2-rec.yaml", "result-rec.txt", 'stylish'),
+        ("file1-rec.json", "file2-rec.json", "result-plain.txt", 'plain'),
+        ("file1-rec.yaml", "file2-rec.yaml", "result-plain.txt", 'plain'),
     ]
 )
 def test_gendiff(input_file1, input_file2, output_file, formater):

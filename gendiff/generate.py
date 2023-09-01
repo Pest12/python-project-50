@@ -25,8 +25,7 @@ def operation_for_modified(content1, content2, key):
                  "old_value": build_diff(content1[key], content1[key])})
     if isinstance(content2[key], dict):
         return ({"type": "updated", "name_key": key,
-                 "new_value": build_diff(content2[key],
-                                               content2[key]),
+                 "new_value": build_diff(content2[key], content2[key]),
                  "old_value": content1[key]})
     if content1[key] != content2[key]:
         return ({"type": "updated", "name_key": key,

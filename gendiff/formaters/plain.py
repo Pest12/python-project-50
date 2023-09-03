@@ -30,4 +30,4 @@ def build(diff, path=""):
 
 
 def make_plain(dictionary):
-    return build(dictionary)
+    return build(dictionary) + '\n'

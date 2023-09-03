@@ -9,6 +9,7 @@ def stringify(value):
         return str(int)
     return f"'{value}'"
 
+
 def build(diff, path=""):
     lines = []
     for dictionary in diff:
@@ -26,6 +27,7 @@ def build(diff, path=""):
             value = build(dictionary['value'], f"{name}.")
             lines.append(f"{value}")
     return '\n'.join(lines)
+
 
 def make_plain(dictionary):
     return build(dictionary)

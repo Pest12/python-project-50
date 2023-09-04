@@ -6,7 +6,7 @@ def stringify(value):
     if isinstance(value, list):
         return '[complex value]'
     if isinstance(value, int):
-        return str(int)
+        return str(value)
     return f"'{value}'"
 
 

@@ -30,8 +30,7 @@ make package-install
 ## Optional arguments
 
 1. **-h, --help**  `gendiff -h` - launch help
-2. **-f, --format** `gendiff -f` - set format of output
-**Available formats:**
+2. **-f, --format** `gendiff -f` - set format of output. **Available formats:**
 * `-f stylish` - default format
 * `-f plain`
 * `-f json`

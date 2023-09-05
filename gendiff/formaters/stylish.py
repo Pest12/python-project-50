@@ -38,4 +38,4 @@ def build_result(dictionary, depth=0):
 
 
 def make_stylish(dictionary):
-    return build_result(dictionary) + '\n'
+    return build_result(dictionary)

@@ -21,4 +21,4 @@ def test_gendiff(input_file1, input_file2, output_file, formater):
         result = result_file.read()
         file1 = get_path(input_file1)
         file2 = get_path(input_file2)
-        assert generate_diff(file1, file2, formater) == result
+        assert generate_diff(file1, file2, formater) == result[:-1]

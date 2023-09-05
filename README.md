@@ -29,7 +29,7 @@ make package-install
 
 ## Optional arguments
 
-1. **-h, --help** 8 `gendiff -h` - launch help
+1. **-h, --help**  `gendiff -h` - launch help
 2. **-f, --format** `gendiff -f` - set format of output
 **Available formats:**
 * `-f stylish` - default format
@@ -57,14 +57,14 @@ make package-install
 [![asciicast](https://asciinema.org/a/605799.svg)](https://asciinema.org/a/605799)
 
 
-### Work example formatter **plain**
+### Work example formatter PLAIN
 
 `gendiff filepath1.json filepath2.json -f plain`
 
 [![asciicast](https://asciinema.org/a/606092.svg)](https://asciinema.org/a/606092)
 
 
-### Work example formatter **json**
+### Work example formatter JSON
 
 `gendiff filepath1.json filepath2.json -f json`
 

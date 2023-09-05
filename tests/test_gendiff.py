@@ -2,6 +2,7 @@ from gendiff import generate_diff
 from gendiff.path import get_path
 import pytest
 
+
 @pytest.mark.parametrize(
     "input_file1,input_file2,output_file,formater",
     [

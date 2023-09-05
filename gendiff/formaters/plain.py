@@ -23,7 +23,7 @@ def build(diff, path=""):
             lines.append(f"Property '{name}' was updated."
                          f" From {stringify(dictionary['old_value'])}"
                          f" to {stringify(dictionary['new_value'])}")
-        elif dictionary['type'] == 'nested':
+        elif dictionary['type'] == 'nested_dict':
             value = build(dictionary['value'], f"{name}.")
             lines.append(f"{value}")
     return '\n'.join(lines)

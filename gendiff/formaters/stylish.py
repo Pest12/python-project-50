@@ -19,7 +19,7 @@ def forming_a_string(dictionary, key, depth, sign):
 def build_result(dictionary, depth=0):
     final = ['{']
     for key in dictionary:
-        if key['type'] == 'not updated' or key['type'] == 'nested':
+        if key['type'] == 'same' or key['type'] == 'nested_dict':
             final.append(forming_a_string(
                 key, 'value',
                 depth, sign='    '

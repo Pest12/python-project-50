@@ -35,13 +35,13 @@ def build_result(dictionary, depth=0):
             ))
         elif key['type'] == 'removed':
             final.append(forming_a_string(
-                 key, 'old_value',
-                 depth, sign='  - '
+                key, 'old_value',
+                depth, sign='  - '
             ))
         elif key['type'] == 'added':
             final.append(forming_a_string(
-                 key, 'new_value',
-                 depth, sign='  + '
+                key, 'new_value',
+                depth, sign='  + '
             ))
     final.append(f'{" " * depth}}}')
     return '\n'.join(final)

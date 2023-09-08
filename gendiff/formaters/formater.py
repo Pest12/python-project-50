@@ -10,5 +10,4 @@ def get_formater(diff, formater):
         return make_plain(diff)
     if formater == 'json':
         return make_json(diff)
-    else:
-        raise ValueError(f"Unrecognized formater: {formater}")
+    raise ValueError(f"Unrecognized formater: {formater}")

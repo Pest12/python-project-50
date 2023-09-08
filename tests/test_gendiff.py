@@ -22,7 +22,7 @@ import pytest
 )
 def test_gendiff(input_file1, input_file2, output_file, formater):
     output = get_path(output_file)
-    with open(output, encoding='utf8') as result_file:
+    with open(output) as result_file:
         result = result_file.read()
         file1 = get_path(input_file1)
         file2 = get_path(input_file2)

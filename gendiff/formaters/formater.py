@@ -4,9 +4,11 @@ from gendiff.formaters.json import make_json
 
 
 def get_formater(diff, formater):
-    if formater == 'stylish':
+    if formater == 'stylish' or formater is None:
         return make_stylish(diff)
     if formater == 'plain':
         return make_plain(diff)
     if formater == 'json':
         return make_json(diff)
+    else:
+        raise ValueError(f"Unrecognized formater: {formater}")

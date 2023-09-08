@@ -7,9 +7,13 @@ import pytest
     "input_file1,input_file2,output_file,formater",
     [
         ("file1.json", "file2.json", "result.txt", 'stylish'),
+        ("file1.json", "file2.json", "result.txt", None),
         ("file1.yaml", "file2.yaml", "result.txt", 'stylish'),
+        ("file1.yaml", "file2.yaml", "result.txt", None),
         ("file1-rec.json", "file2-rec.json", "result-rec.txt", 'stylish'),
+        ("file1-rec.json", "file2-rec.json", "result-rec.txt", None),
         ("file1-rec.yaml", "file2-rec.yaml", "result-rec.txt", 'stylish'),
+        ("file1-rec.yaml", "file2-rec.yaml", "result-rec.txt", None),
         ("file1-rec.json", "file2-rec.json", "result-plain.txt", 'plain'),
         ("file1-rec.yaml", "file2-rec.yaml", "result-plain.txt", 'plain'),
         ("file1.json", "file2.json", "result-json.txt", 'json'),

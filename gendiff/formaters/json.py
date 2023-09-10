@@ -1,4 +1,4 @@
-from gendiff.formaters.correct_keys import to_str
+from gendiff.formaters.stylish import to_str
 import json
 
 

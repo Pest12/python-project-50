@@ -1,4 +1,19 @@
-from gendiff.formaters.correct_keys import to_str
+SIGN = {
+    'same': '  ',
+    'added': '+ ',
+    'removed': '- '
+}
+
+
+def to_str(file):
+    for key, val in file.items():
+        if isinstance(val, dict):
+            to_str(val)
+        elif val is None:
+            file[key] = 'null'
+        elif isinstance(val, bool):
+            file[key] = str(file[key]).lower()
+    return file
 
 
 def stringify_value(data, depth):
@@ -20,19 +35,12 @@ def stringify_diff(diff, depth=1):
             lines.append(f"{'  ' * (depth+1)}}}")
         elif v['type'] == 'updated':
             lines.append(f"{'  ' * depth}- {k}: "
-                       f"{stringify_value(v['old_value'], depth+2)}")
+                         f"{stringify_value(v['old_value'], depth+2)}")
             lines.append(f"{'  ' * depth}+ {k}: "
-                       f"{stringify_value(v['new_value'], depth+2)}")
+                         f"{stringify_value(v['new_value'], depth+2)}")
         else:
-            if v['type'] == 'same':
-                lines.append(f"{'  ' * depth}  {k}: "
-                          f"{stringify_value(v['value'], depth+2)}")
-            elif v['type'] == 'added':
-                lines.append(f"{'  ' * depth}+ {k}: "
-                          f"{stringify_value(v['value'], depth+2)}")
-            elif v['type'] == 'removed':
-                lines.append(f"{'  ' * depth}- {k}: "
-                          f"{stringify_value(v['value'], depth+2)}")
+            lines.append(f"{'  ' * depth}{SIGN[v['type']]}{k}: "
+                         f"{stringify_value(v['value'], depth+2)}")
     res = '\n'.join(lines)
     return res
 

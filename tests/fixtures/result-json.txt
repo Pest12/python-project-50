@@ -1,28 +1,23 @@
-[
-    {
+{
+    "follow": {
         "type": "removed",
-        "name_key": "follow",
-        "old_value": false
+        "value": "false"
     },
-    {
+    "host": {
         "type": "same",
-        "name_key": "host",
         "value": "hexlet.io"
     },
-    {
+    "proxy": {
         "type": "removed",
-        "name_key": "proxy",
-        "old_value": "123.234.53.22"
+        "value": "123.234.53.22"
     },
-    {
+    "timeout": {
         "type": "updated",
-        "name_key": "timeout",
         "old_value": 50,
         "new_value": 20
     },
-    {
+    "verbose": {
         "type": "added",
-        "name_key": "verbose",
-        "new_value": true
+        "value": "true"
     }
-]
+}

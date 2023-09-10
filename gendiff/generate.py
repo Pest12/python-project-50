@@ -17,7 +17,7 @@ def build_diff(old, new):  # noqa: C901
                 }
             elif old_val != new_val:
                 res[key] = {
-                   'type': 'updated', 'old_value': old_val, 'new_value': new_val
+                    'type': 'updated', 'old_value': old_val, 'new_value': new_val
                 }
             else:
                 res[key] = {'type': 'same', 'value': old_val}

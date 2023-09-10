@@ -1,51 +1,42 @@
-START_INDENT = 2
+from gendiff.formaters.correct_keys import to_str
 
 
-def to_str(value, depth):
-    if value is None:
-        return 'null'
-    if isinstance(value, bool):
-        return str(value).lower()
-    if isinstance(value, list):
-        return build_result(value, depth + START_INDENT)
-    return value
+def stringify_value(data, depth):
+    if not isinstance(data, dict):
+        return data
+    lines = ["{"]
+    for k, v in data.items():
+        lines.append(f"{'  '*depth}  {k}: {stringify_value(v, depth+2)}")
+    lines.append(f"{'  '*(depth-1)}}}")
+    return '\n'.join(lines)
 
 
-def forming_a_string(dictionary, key, depth, sign):
-    return f"{' ' * depth}{sign}{dictionary['name_key']}: " \
-           f"{to_str(dictionary[key], depth + START_INDENT)}"
+def stringify_diff(diff, depth=1):
+    lines = []
+    for k, v in diff.items():
+        if v['type'] == 'nested_dict':
+            lines.append(f"{'  ' * depth}  {k}: {{")
+            lines.append(f"{stringify_diff(v['value'], depth+2)}")
+            lines.append(f"{'  ' * (depth+1)}}}")
+        elif v['type'] == 'updated':
+            lines.append(f"{'  ' * depth}- {k}: "
+                       f"{stringify_value(v['old_value'], depth+2)}")
+            lines.append(f"{'  ' * depth}+ {k}: "
+                       f"{stringify_value(v['new_value'], depth+2)}")
+        else:
+            if v['type'] == 'same':
+                lines.append(f"{'  ' * depth}  {k}: "
+                          f"{stringify_value(v['value'], depth+2)}")
+            elif v['type'] == 'added':
+                lines.append(f"{'  ' * depth}+ {k}: "
+                          f"{stringify_value(v['value'], depth+2)}")
+            elif v['type'] == 'removed':
+                lines.append(f"{'  ' * depth}- {k}: "
+                          f"{stringify_value(v['value'], depth+2)}")
+    res = '\n'.join(lines)
+    return res
 
 
-def build_result(dictionary, depth=0):
-    final = ['{']
-    for key in dictionary:
-        if key['type'] == 'same' or key['type'] == 'nested_dict':
-            final.append(forming_a_string(
-                key, 'value',
-                depth, sign='    '
-            ))
-        elif key['type'] == 'updated':
-            final.append(forming_a_string(
-                key, 'old_value',
-                depth, sign='  - '
-            ))
-            final.append(forming_a_string(
-                key, 'new_value',
-                depth, sign='  + '
-            ))
-        elif key['type'] == 'removed':
-            final.append(forming_a_string(
-                key, 'old_value',
-                depth, sign='  - '
-            ))
-        elif key['type'] == 'added':
-            final.append(forming_a_string(
-                key, 'new_value',
-                depth, sign='  + '
-            ))
-    final.append(f'{" " * depth}}}')
-    return '\n'.join(final)
-
-
-def make_stylish(dictionary):
-    return build_result(dictionary)
+def make_stylish(diff):
+    diff = to_str(diff)
+    return f"{{\n{stringify_diff(diff)}\n}}"

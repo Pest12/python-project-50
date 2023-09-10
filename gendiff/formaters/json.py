@@ -1,5 +1,7 @@
+from gendiff.formaters.correct_keys import to_str
 import json
 
 
 def make_json(dictionary):
-    return json.dumps(dictionary, indent=4)
+    diff = to_str(dictionary)
+    return json.dumps(diff, indent=4)

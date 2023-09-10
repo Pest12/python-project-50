@@ -1,50 +1,18 @@
-def operation_for_add(content, key):
-    if isinstance(content, dict):
-        return {"type": "added", "name_key": key,
-                "new_value": build_diff(content, content)}
-    else:
-        return {"type": "added", "name_key": key, "new_value": content}
-
-
-def operation_for_delete(content, key):
-    if isinstance(content, dict):
-        return {"type": "removed", "name_key": key,
-                "old_value": build_diff(content, content)}
-    else:
-        return {"type": "removed", "name_key": key, "old_value": content}
-
-
-def operation_for_modified(content1, content2, key):
-    if isinstance(content1[key], dict) and \
-            isinstance(content2[key], dict):
-        return ({"type": "nested_dict", "name_key": key,
-                 "value": build_diff(content1[key], content2[key])})
-    if isinstance(content1[key], dict):
-        return ({"type": "updated", "name_key": key,
-                 "old_value": build_diff(content1[key], content1[key]),
-                 "new_value": content2[key]})
-    if isinstance(content2[key], dict):
-        return ({"type": "updated", "name_key": key,
-                 "old_value": content1[key],
-                 "new_value": build_diff(content2[key], content2[key])})
-    if content1[key] != content2[key]:
-        return ({"type": "updated", "name_key": key,
-                 "old_value": content1[key], "new_value": content2[key]})
-    else:
-        return ({"type": "same",
-                 "name_key": key, "value": content1[key]})
-
-
-def build_diff(content1, content2):
-    keys = content1.keys() | content2.keys()
-    added = content2.keys() - content1.keys()
-    deleted = content1.keys() - content2.keys()
-    result = []
-    for key in keys:
-        if key in added:
-            result.append(operation_for_add(content2[key], key))
-        if key in deleted:
-            result.append(operation_for_delete(content1[key], key))
-        if key in content1 and key in content2:
-            result.append(operation_for_modified(content1, content2, key))
-    return sorted(result, key=lambda dict: dict["name_key"])
+def build_diff(old, new):
+    res = {}
+    old_keys = set(old.keys()) - set(new.keys())
+    for key in old_keys:
+        res[key] = {'type': 'removed', 'value': old[key]}
+    new_keys = set(new.keys()) - set(old.keys())
+    for key in new_keys:
+        res[key] = {'type': 'added', 'value': new[key]}
+    for key in old.keys() & new.keys():
+        old_val = old[key]
+        new_val = new[key]
+        if isinstance(old[key], dict) and isinstance(new[key], dict):
+            res[key] = {'type': 'nested_dict', 'value': build_diff(old_val, new_val)}
+        elif old_val == new_val:
+            res[key] = {'type': 'same', 'value': old_val}
+        elif old_val != new_val:
+            res[key] = {'type': 'updated', 'old_value': old_val, 'new_value': new_val}
+    return dict(sorted(res.items(), key=lambda k: k[0]))

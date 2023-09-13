@@ -1,4 +1,4 @@
-# content of coftest.py
+from tests.conftest import get_path
 from gendiff import generate_diff
 import pytest
 

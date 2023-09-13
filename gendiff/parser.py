@@ -4,15 +4,15 @@ import os
 
 
 def get_content(path):
-    extension = os.path.splitext(path)[1]
+    extension = os.path.splitext(path)[1][1:]
     with open(path) as content:
         data = content.read()
-        return data, extension
+        return parse(data, extension)
 
 
-def parse(file_data, extension):
-    if extension == '.json':
-        return json.loads(file_data)
-    if extension == '.yaml' or extension == '.yml':
-        return yaml.safe_load(file_data)
+def parse(data, extension):
+    if extension == 'json':
+        return json.loads(data)
+    if extension == 'yaml' or extension == 'yml':
+        return yaml.safe_load(data)
     raise ValueError('Unrecognized extension')

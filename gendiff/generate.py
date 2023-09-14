@@ -1,25 +1,23 @@
-def build_diff(old, new):  # noqa: C901
+from collections import OrderedDict
+
+
+def build_diff(old, new):
     res = {}
-    deleted = set(old.keys()) - set(new.keys())
-    added = set(new.keys()) - set(old.keys())
     keys = set(new.keys()) | set(old.keys())
     for key in keys:
-        if key in deleted:
+        if key not in new:
             res[key] = {'type': 'removed', 'value': old[key]}
-        if key in added:
+        elif key not in old:
             res[key] = {'type': 'added', 'value': new[key]}
-        if key in old and key in new:
-            old_val = old[key]
-            new_val = new[key]
-            if isinstance(old_val, dict) and isinstance(new_val, dict):
-                res[key] = {
-                    'type': 'nested_dict', 'value': build_diff(old_val, new_val)
-                }
-            elif old_val != new_val:
-                res[key] = {
-                    'type': 'updated', 'old_value': old_val,
-                    'new_value': new_val
-                }
-            else:
-                res[key] = {'type': 'same', 'value': old_val}
-    return dict(sorted(res.items(), key=lambda k: k[0]))
+        elif isinstance(old[key], dict) and isinstance(new[key], dict):
+            res[key] = {
+                'type': 'nested_dict', 'value': build_diff(old[key], new[key])
+            }
+        elif old[key] != new[key]:
+            res[key] = {
+                'type': 'updated', 'old_value': old[key],
+                'new_value': new[key]
+            }
+        elif old[key] == new[key]:
+            res[key] = {'type': 'same', 'value': old[key]}
+    return OrderedDict(sorted(res.items()))

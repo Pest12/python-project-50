@@ -29,5 +29,5 @@ def build(diff, path=""):
     return '\n'.join(lines)
 
 
-def make_plain(dictionary):
-    return build(dictionary)
+def make_plain(diff):
+    return build(diff)

@@ -25,7 +25,7 @@ def stringify_diff(diff, depth=0):
     lines = ['{']
     for k, v in diff.items():
         if v['type'] == 'nested_dict':
-            new_value = stringify_diff(v['value'], depth+INDENT)
+            new_value = stringify_diff(v['value'], depth + INDENT)
             lines.append(f"{' ' * depth}    {k}: {new_value}")
         elif v['type'] == 'updated':
             lines.append(f"{' ' * depth}  - {k}: "

@@ -22,6 +22,5 @@ def build_diff(old, new):
                 'new_value': new[key]
             }
             continue
-        if old[key] == new[key]:
-            res[key] = {'type': 'same', 'value': old[key]}
+        res[key] = {'type': 'same', 'value': old[key]}
     return OrderedDict(sorted(res.items()))

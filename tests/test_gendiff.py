@@ -1,4 +1,4 @@
-from tests.conftest import get_path
+from tests.conftest import get_fixture_path
 from gendiff import generate_diff
 import pytest
 
@@ -21,9 +21,9 @@ import pytest
     ]
 )
 def test_gendiff(input_file1, input_file2, output_file, formater):
-    output = get_path(output_file)
+    output = get_fixture_path(output_file)
     with open(output) as result_file:
         result = result_file.read()
-        file1 = get_path(input_file1)
-        file2 = get_path(input_file2)
+        file1 = get_fixture_path(input_file1)
+        file2 = get_fixture_path(input_file2)
         assert generate_diff(file1, file2, formater) == result[:-1]

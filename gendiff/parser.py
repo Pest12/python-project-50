@@ -4,10 +4,10 @@ import os
 
 
 def get_content(path):
-    extension = os.path.splitext(path)[1][1:]
+    _, extension = os.path.splitext(path)
     with open(path) as content:
         data = content.read()
-        return parse(data, extension)
+        return parse(data, extension[1:])
 
 
 def parse(data, extension):

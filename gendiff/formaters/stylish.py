@@ -1,12 +1,12 @@
 INDENT = 4
-SIGN = {
+ACTION_PREFIX = {
     'same': '    ',
     'added': '  + ',
     'removed': '  - '
 }
 
 
-def stringify_value(data, depth):
+def stringify(data, depth):
     if isinstance(data, bool):
         return str(data).lower()
     elif data is None:
@@ -15,8 +15,8 @@ def stringify_value(data, depth):
         return data
     lines = ["{"]
     for k, v in data.items():
-        lines.append(f"{' ' * depth}    {k}: "
-                     f"{stringify_value(v, depth+INDENT)}")
+        lines.append(f"{' ' * depth}{ACTION_PREFIX['same']}{k}: "
+                     f"{stringify(v, depth+INDENT)}")
     lines.append(f"{' ' * depth}}}")
     return '\n'.join(lines)
 
@@ -26,15 +26,16 @@ def stringify_diff(diff, depth=0):
     for k, v in diff.items():
         if v['type'] == 'nested_dict':
             new_value = stringify_diff(v['value'], depth + INDENT)
-            lines.append(f"{' ' * depth}    {k}: {new_value}")
+            lines.append(f"{' ' * depth}{ACTION_PREFIX['same']}{k}: "
+                         f"{new_value}")
         elif v['type'] == 'updated':
-            lines.append(f"{' ' * depth}  - {k}: "
-                         f"{stringify_value(v['old_value'], depth+INDENT)}")
-            lines.append(f"{' ' * depth}  + {k}: "
-                         f"{stringify_value(v['new_value'], depth+INDENT)}")
+            lines.append(f"{' ' * depth}{ACTION_PREFIX['removed']}{k}: "
+                         f"{stringify(v['old_value'], depth+INDENT)}")
+            lines.append(f"{' ' * depth}{ACTION_PREFIX['added']}{k}: "
+                         f"{stringify(v['new_value'], depth+INDENT)}")
         else:
-            lines.append(f"{' ' * depth}{SIGN[v['type']]}{k}: "
-                         f"{stringify_value(v['value'], depth+INDENT)}")
+            lines.append(f"{' ' * depth}{ACTION_PREFIX[v['type']]}{k}: "
+                         f"{stringify(v['value'], depth+INDENT)}")
     lines.append(f"{' ' * depth}}}")
     res = '\n'.join(lines)
     return res

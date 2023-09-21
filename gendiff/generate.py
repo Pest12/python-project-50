@@ -1,7 +1,7 @@
 def build_diff(old, new):
     res = {}
     keys = set(new.keys()) | set(old.keys())
-    kyes = sorted(keys)
+    keys = sorted(keys)
     for key in keys:
         if key not in new:
             res[key] = {'type': 'removed', 'value': old[key]}

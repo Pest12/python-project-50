@@ -9,9 +9,9 @@ ACTION_PREFIX = {
 def stringify(data, depth):
     if isinstance(data, bool):
         return str(data).lower()
-    elif data is None:
+    if data is None:
         return 'null'
-    elif isinstance(data, str) or isinstance(data, int):
+    if isinstance(data, str) or isinstance(data, int):
         return data
     lines = ["{"]
     for k, v in data.items():
@@ -41,5 +41,5 @@ def stringify_diff(diff, depth=0):
     return res
 
 
-def make_stylish(diff):
+def to_stylish(diff):
     return stringify_diff(diff)

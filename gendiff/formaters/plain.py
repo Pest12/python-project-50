@@ -13,21 +13,21 @@ def stringify(value):
 def build(diff, path=""):
     lines = []
     for k, v in diff.items():
-        name = f"{path}{k}"
+        property_path = f"{path}{k}"
         if v['type'] == 'added':
-            lines.append(f"Property '{name}' was added with value: "
+            lines.append(f"Property '{property_path}' was added with value: "
                          f"{stringify(v['value'])}")
         elif v['type'] == 'removed':
-            lines.append(f"Property '{name}' was removed")
+            lines.append(f"Property '{property_path}' was removed")
         elif v['type'] == 'updated':
-            lines.append(f"Property '{name}' was updated."
+            lines.append(f"Property '{property_path}' was updated."
                          f" From {stringify(v['old_value'])}"
                          f" to {stringify(v['new_value'])}")
         elif v['type'] == 'nested_dict':
-            value = build(v['value'], f"{name}.")
+            value = build(v['value'], f"{property_path}.")
             lines.append(f"{value}")
     return '\n'.join(lines)
 
 
-def make_plain(diff):
+def to_plain(diff):
     return build(diff)

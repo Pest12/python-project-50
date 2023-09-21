@@ -4,7 +4,7 @@ from gendiff.generate import build_diff
 
 
 def generate_diff(file_path1, file_path2, formater='stylish'):
-    parced_data1 = get_content(file_path1)
-    parced_data2 = get_content(file_path2)
-    diff = build_diff(parced_data1, parced_data2)
-    return get_formater(diff, formater)
+    content1 = get_content(file_path1)
+    content2 = get_content(file_path2)
+    dicts_diff = build_diff(content1, content2)
+    return get_formater(dicts_diff, formater)

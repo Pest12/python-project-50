@@ -1,13 +1,13 @@
-from gendiff.formaters.stylish import make_stylish
-from gendiff.formaters.plain import make_plain
-from gendiff.formaters.json import make_json
+from gendiff.formaters.stylish import to_stylish
+from gendiff.formaters.plain import to_plain
+from gendiff.formaters.json import to_json
 
 
 def get_formater(diff, formater):
     if formater == 'stylish' or formater is None:
-        return make_stylish(diff)
+        return to_stylish(diff)
     if formater == 'plain':
-        return make_plain(diff)
+        return to_plain(diff)
     if formater == 'json':
-        return make_json(diff)
+        return to_json(diff)
     raise ValueError('Unrecognized formater: ' + formater)
